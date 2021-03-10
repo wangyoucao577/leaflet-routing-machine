@@ -325,9 +325,21 @@
 			    viaLoc;
 			for (i = 0; i < vias.length; i++) {
 				viaLoc = vias[i].location;
-				wps.push(new Waypoint(L.latLng(viaLoc[1], viaLoc[0]),
-				                            inputWaypoints[i].name,
-											inputWaypoints[i].options));
+				if (vias.length == inputWaypoints.length) {	// normal case
+					wps.push(L.Routing.waypoint(L.latLng(viaLoc[1], viaLoc[0]),
+						inputWaypoints[i].name,
+						inputWaypoints[i].options));
+				}else{	// automatically insert waypoints for EV
+					var viaName = vias[i].name;
+					if (i == 0){
+						viaName = inputWaypoints[0].name;
+					}else if(i == vias.length-1){
+						viaName = inputWaypoints[inputWaypoints.length-1].name;
+					}
+					wps.push(L.Routing.waypoint(L.latLng(viaLoc[1], viaLoc[0]),
+						viaName,						// use name from response except origin and destination
+						inputWaypoints[0].options));	// always use the first options
+				}
 			}
 
 			return wps;
@@ -369,9 +381,11 @@
 			this._hints = {
 				locations: {}
 			};
-			for (var i = actualWaypoints.length - 1; i >= 0; i--) {
-				loc = waypoints[i].latLng;
-				this._hints.locations[this._locationKey(loc)] = actualWaypoints[i].hint;
+			if (actualWaypoints.length == waypoints.length) {	// normal case
+				for (var i = actualWaypoints.length - 1; i >= 0; i--) {
+					loc = waypoints[i].latLng;
+					this._hints.locations[this._locationKey(loc)] = actualWaypoints[i].hint;
+				}	
 			}
 		},
 	});
