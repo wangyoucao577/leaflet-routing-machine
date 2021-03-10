@@ -236,18 +236,21 @@
 							waypointIndices.push(index);
 						}
 
-						result.instructions.push({
-							type: type,
-							distance: step.distance,
-							time: step.duration,
-							road: step.name,
-							direction: this._bearingToDirection(step.maneuver.bearing_after),
-							exit: step.maneuver.exit,
-							index: index,
-							mode: step.mode,
-							modifier: modifier,
-							text: text
-						});
+						// only care about origin, destination and charging waypoints
+						if ((i == 0 && type == 'Head') || type == 'WaypointReached' || type == 'DestinationReached') {
+							result.instructions.push({
+								type: type,
+								distance: step.distance,
+								time: step.duration,
+								road: step.name,
+								direction: this._bearingToDirection(step.maneuver.bearing_after),
+								exit: step.maneuver.exit,
+								index: index,
+								mode: step.mode,
+								modifier: modifier,
+								text: text
+							});	
+						}
 					}
 
 					index += geometry.length;
