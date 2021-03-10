@@ -15,7 +15,7 @@
 			autoRoute: true,
 			routeWhileDragging: false,
 			routeDragInterval: 500,
-			waypointMode: 'connect',
+			waypointMode: 'snap',//'connect',
 			showAlternatives: false,
 			defaultErrorHandler: function(e) {
 				console.error('Routing error:', e.error);
