@@ -164,6 +164,21 @@
 				route.inputWaypoints = inputWaypoints;
 				route.waypoints = actualWaypoints;
 				route.properties = {isSimplified: !options || !options.geometryOnly || options.simplifyGeometry};
+				
+				// insert charging duration
+				var waypointIndex = 1;
+				for (var j = 0; j < route.instructions.length; j++) {
+					if (route.instructions[j].type != 'WaypointReached') {
+						continue;
+					}
+					route.instructions[j].time = actualWaypoints[waypointIndex].charge_duration;
+					route.instructions[j].text = "charge";
+					waypointIndex++;
+					if (waypointIndex >= actualWaypoints.length) {
+						break;
+					}
+				}
+				
 				alts.push(route);
 			}
 
