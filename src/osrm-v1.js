@@ -171,7 +171,7 @@
 					if (route.instructions[j].type != 'WaypointReached') {
 						continue;
 					}
-					route.instructions[j].time = actualWaypoints[waypointIndex].charge_duration;
+					route.instructions[j].time = response.waypoints[waypointIndex].charge_duration;
 					route.instructions[j].text = "charge";
 					waypointIndex++;
 					if (waypointIndex >= actualWaypoints.length) {
