@@ -139,6 +139,7 @@
 			    instr,
 			    step,
 			    distance,
+				time,
 			    text,
 			    icon;
 
@@ -148,8 +149,9 @@
 				instr = r.instructions[i];
 				text = this._formatter.formatInstruction(instr, i);
 				distance = this._formatter.formatDistance(instr.distance);
+				time = this._formatter.formatTime(instr.time);
 				icon = this._formatter.getIconName(instr, i);
-				step = this._itineraryBuilder.createStep(text, distance, icon, steps);
+				step = this._itineraryBuilder.createStep(text, distance, time, icon, steps);
 
 				if(instr.index) {
 					this._addRowListeners(step, r.coordinates[instr.index]);

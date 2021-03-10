@@ -27,7 +27,7 @@
 			return L.DomUtil.create('tbody', '');
 		},
 
-		createStep: function(text, distance, icon, steps) {
+		createStep: function(text, distance, time, icon, steps) {
 			var row = L.DomUtil.create('tr', '', steps),
 				span,
 				td;
@@ -36,6 +36,8 @@
 			td.appendChild(span);
 			td = L.DomUtil.create('td', '', row);
 			td.appendChild(document.createTextNode(text));
+			td = L.DomUtil.create('td', '', row);
+			td.appendChild(document.createTextNode(time));
 			td = L.DomUtil.create('td', '', row);
 			td.appendChild(document.createTextNode(distance));
 			return row;
