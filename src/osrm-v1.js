@@ -212,7 +212,9 @@
 					result.coordinates.push.apply(result.coordinates, geometry);
 					type = this._maneuverToInstructionType(step.maneuver, i === legCount - 1);
 					modifier = this._maneuverToModifier(step.maneuver);
-					text = stepToText(step, {legCount: legCount, legIndex: i});
+					//TODO: fix stepToText error
+					//text = stepToText(step, {legCount: legCount, legIndex: i});
+					text = "text1";
 
 					if (type) {
 						if ((i == 0 && step.maneuver.type == 'depart') || step.maneuver.type == 'arrive') {
