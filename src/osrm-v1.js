@@ -67,6 +67,7 @@
 			if (this.options.requestParameters) {
 				url += L.Util.getParamString(this.options.requestParameters, url);
 			}
+			console.debug(url)
 
 			timer = setTimeout(function() {
 				timedOut = true;
