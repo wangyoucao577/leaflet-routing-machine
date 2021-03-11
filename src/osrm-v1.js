@@ -229,7 +229,7 @@
 					modifier = this._maneuverToModifier(step.maneuver);
 					//TODO: fix stepToText error
 					//text = stepToText(step, {legCount: legCount, legIndex: i});
-					text = "text1";
+					text = "";
 
 					if (type) {
 						if ((i == 0 && step.maneuver.type == 'depart') || step.maneuver.type == 'arrive') {
@@ -241,7 +241,7 @@
 							result.instructions.push({
 								type: type,
 								distance: step.distance,
-								time: step.duration,
+								time: 0,//step.duration,
 								road: step.name,
 								direction: this._bearingToDirection(step.maneuver.bearing_after),
 								exit: step.maneuver.exit,
