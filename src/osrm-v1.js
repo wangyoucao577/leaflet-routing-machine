@@ -22,11 +22,11 @@
 			profile: 'driving',
 			timeout: 30 * 1000,
 			routingOptions: {
-				alternatives: true,
+				alternatives: false,
 				steps: true
 			},
 			polylinePrecision: 5,
-			useHints: true,
+			useHints: false,
 			suppressDemoServerWarning: false,
 			language: 'en'
 		},
@@ -384,7 +384,7 @@
 			return this.options.serviceUrl + '/' + this.options.profile + '/' +
 				locs.join(';') + '?' +
 				(options.geometryOnly ? (options.simplifyGeometry ? '' : 'overview=full') : 'overview=false') +
-				'&alternatives=' + computeAlternative.toString() +
+				(this.options.routingOptions.alternatives ? '&alternatives=' + computeAlternative.toString() : '') +
 				'&steps=' + computeInstructions.toString() +
 				(this.options.useHints ? '&hints=' + hints.join(';') : '') +
 				(options.allowUTurns ? '&continue_straight=' + !options.allowUTurns : '');
