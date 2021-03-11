@@ -172,7 +172,7 @@
 						continue;
 					}
 					route.instructions[j].time = response.waypoints[waypointIndex].charge_duration;
-					route.instructions[j].text = "charge";
+					route.instructions[j].text = response.waypoints[waypointIndex].charge_text;
 					waypointIndex++;
 					if (waypointIndex >= actualWaypoints.length) {
 						break;
