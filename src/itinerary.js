@@ -152,7 +152,7 @@
 				//disable empty time/distance for EV
 				distance = "";
 				if (instr.distance > 0) {
-					distance = this._formatter.formatDistance(instr.distance);
+					distance = this._formatter.formatDistance(instr.distance, this.options.totalDistanceRoundingSensitivity);
 				}
 				time = "";
 				if (instr.time > 0) {
