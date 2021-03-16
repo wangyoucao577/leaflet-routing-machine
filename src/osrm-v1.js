@@ -168,9 +168,10 @@
 				// insert charging duration
 				var waypointIndex = 1;
 				for (var j = 0; j < route.instructions.length; j++) {
-					if (route.instructions[j].type != 'WaypointReached') {
+					if (route.instructions[j].type != 'WaypointReached') {	// middle charging waypoint
 						continue;
 					}
+					route.instructions[j].distance = response.routes[0].legs[j-1].distance;
 					route.instructions[j].time = response.waypoints[waypointIndex].charge_duration;
 					route.instructions[j].text = response.waypoints[waypointIndex].charge_text;
 					waypointIndex++;
@@ -240,7 +241,7 @@
 						if ((i == 0 && type == 'Head') || type == 'WaypointReached' || type == 'DestinationReached') {
 							result.instructions.push({
 								type: type,
-								distance: step.distance,
+								distance: 0, //step.distance,
 								time: 0,//step.duration,
 								road: step.name,
 								direction: this._bearingToDirection(step.maneuver.bearing_after),

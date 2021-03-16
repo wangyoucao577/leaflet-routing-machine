@@ -149,10 +149,12 @@
 				instr = r.instructions[i];
 				text = this._formatter.formatInstruction(instr, i);
 
-				//disable distance and empty time for EV
-				distance = ""
-				//distance = this._formatter.formatDistance(instr.distance);
-				time = ""
+				//disable empty time/distance for EV
+				distance = "";
+				if (instr.distance > 0) {
+					distance = this._formatter.formatDistance(instr.distance);
+				}
+				time = "";
 				if (instr.time > 0) {
 					time = this._formatter.formatTime(instr.time);
 				}
