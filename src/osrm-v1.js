@@ -171,7 +171,6 @@
 					if (route.instructions[j].type != 'WaypointReached') {	// middle charging waypoint
 						continue;
 					}
-					route.instructions[j].distance = response.routes[0].legs[j-1].distance;
 					route.instructions[j].time = response.waypoints[waypointIndex].charge_duration;
 					route.instructions[j].text = response.waypoints[waypointIndex].charge_text;
 					waypointIndex++;
@@ -179,7 +178,16 @@
 						break;
 					}
 				}
-				
+				// insert distances
+				waypointIndex = 1;
+				for (var j = 1; j < route.instructions.length; j++) {
+					route.instructions[j].distance = response.routes[0].legs[j-1].distance;
+					waypointIndex++;
+					if (waypointIndex >= actualWaypoints.length) {
+						break;
+					}
+				}
+
 				alts.push(route);
 			}
 
