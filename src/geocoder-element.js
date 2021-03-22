@@ -22,9 +22,17 @@
 			createGeocoder: function(i, nWps, options) {
 				var container = L.DomUtil.create('div', 'leaflet-routing-geocoder'),
 					input = L.DomUtil.create('input', '', container),
-					remove = options.addWaypoints ? L.DomUtil.create('span', 'leaflet-routing-remove-waypoint', container) : undefined;
+					// only origin & destination allow edit
+					//remove = options.addWaypoints ? L.DomUtil.create('span', 'leaflet-routing-remove-waypoint', container) : undefined;
+					remove = (i == 0 || i == nWps-1) ? L.DomUtil.create('span', 'leaflet-routing-remove-waypoint', container) : undefined;
 
-				input.disabled = !options.addWaypoints;
+				//input.disabled = !options.addWaypoints;
+				if (i == 0 || i == nWps-1){	// only origin & destination allow edit
+					input.disabled = false;
+				}else{
+					input.disabled = true;	// disable edit for middle waypoints 
+					remove = undefined;
+				}
 
 				return {
 					container: container,

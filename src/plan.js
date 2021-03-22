@@ -115,13 +115,14 @@
 			this._geocoderElems = [];
 
 
-			if (this.options.addWaypoints) {
-				addWpBtn = L.DomUtil.create('button', 'leaflet-routing-add-waypoint ' + this.options.addButtonClassName, container);
-				addWpBtn.setAttribute('type', 'button');
-				L.DomEvent.addListener(addWpBtn, 'click', function() {
-					this.spliceWaypoints(waypoints.length, 0, null);
-				}, this);
-			}
+			// disable add waypoints button
+			// if (this.options.addWaypoints) {
+			// 	addWpBtn = L.DomUtil.create('button', 'leaflet-routing-add-waypoint ' + this.options.addButtonClassName, container);
+			// 	addWpBtn.setAttribute('type', 'button');
+			// 	L.DomEvent.addListener(addWpBtn, 'click', function() {
+			// 		this.spliceWaypoints(waypoints.length, 0, null);
+			// 	}, this);
+			// }
 
 			if (this.options.reverseWaypoints) {
 				reverseBtn = L.DomUtil.create('button', 'leaflet-routing-reverse-waypoints', container);
