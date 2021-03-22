@@ -178,6 +178,9 @@
 						break;
 					}
 				}
+				// insert charging text of origin/destination for debugging
+				route.instructions[0].text = response.waypoints[0].charge_text;
+				route.instructions[route.instructions.length-1].text = response.waypoints[response.waypoints.length-1].charge_text;
 				// insert distances
 				waypointIndex = 1;
 				for (var j = 1; j < route.instructions.length; j++) {
