@@ -302,6 +302,13 @@
 				}
 
 				wps = options && options.waypoints || this._plan.getWaypoints();
+				if (wps.length > 2) {	// backend ev route only supports two waypoints, so trim middle waypoints here
+					console.debug("trim waypoints count from ", wps.length, " to 2 for backend ev trip planner")
+					var tempWps = [];
+					tempWps.push(wps[0]);
+					tempWps.push(wps[wps.length-1]);
+					wps = tempWps;
+				}
 				this.fire('routingstart', {waypoints: wps});
 				this._pendingRequest = this._router.route(wps, function(err, routes) {
 					this._pendingRequest = null;
