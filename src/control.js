@@ -331,6 +331,7 @@
 						}
 
 						routes.forEach(function(route, i) { route.routesIndex = i; });
+						this._plan.setEVTripMetadata(routes[0].metadata);
 
 						if (!options.geometryOnly) {
 							this.fire('routesfound', {waypoints: wps, routes: routes});
