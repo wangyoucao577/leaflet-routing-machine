@@ -193,6 +193,8 @@
 
 				alts.push(route);
 			}
+			route.metadata = response.metadata;	// evtrip metadata
+			console.debug(route.metadata);
 
 			this._saveHintData(response.waypoints, inputWaypoints);
 
