@@ -59,7 +59,8 @@
 				preferred_start_charge_battery_pct: this._preferredBeginChargeBatterySlider.value,
 				preferred_stop_charge_battery_pct: this._preferredEndChargeBatterySlider.value,
 				preferred_arrival_battery_pct: this._preferredArrivalBatterySlider.value,
-				
+				ev_model: this._evModelsSelect.value,
+
 				// simple uuid for req
 				req_id: Date.now() +"-"+ (Math.random()*1000).toFixed(0),
 			};
@@ -163,7 +164,7 @@
 			placeholderLabel.style.color = labelColor;
 			placeholderLabel.style.fontWeight = labelFontWeight;
 			//placeholderLabel.style.borderBottom = 'solid';
-
+		
 			var departureBatteryLabel = L.DomUtil.create('label', '', container);
 			departureBatteryLabel.innerText = "Departure Battery  " + 100 + "%";
 			departureBatteryLabel.style.color = labelColor;
@@ -270,11 +271,33 @@
 				alert("Thanks for the feedback!")
 			}, this);
 
+			var supportedEVModels = {
+				'tesla_model_3': 'Telsa Model 3(55Wh)', 
+				//'tesla_model_s2': 'Tesla Model S2'
+			}
+			var evModelsSelect = L.DomUtil.create('select', '', container);
+			evModelsSelect.setAttribute('title', 'Select EV Model');
+			L.DomEvent.on(evModelsSelect, 'change', function(e) {
+				console.debug('TODO: on evModelsSelect');
+			}.bind(this));
+			Object.keys(supportedEVModels).forEach(function(key) {
+				var option = L.DomUtil.create('option', '', evModelsSelect);
+				option.setAttribute('value', key);
+				option.appendChild(
+					document.createTextNode(supportedEVModels[key])
+				);
+				// if (key == _this._local.key)
+				// {
+				// 	option.setAttribute('selected', '');
+				// }
+			});
 
 			this._departureBatterySlider = departureBatterySlider;
 			this._preferredBeginChargeBatterySlider = preferredBeginChargeBatterySlider;
 			this._preferredEndChargeBatterySlider = preferredEndChargeBatterySlider;
 			this._preferredArrivalBatterySlider = preferredArrivalBatterySlider;
+
+			this._evModelsSelect = evModelsSelect;
 
 			this._updateGeocoders();
 			this.on('waypointsspliced', this._updateGeocoders);
