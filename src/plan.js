@@ -249,6 +249,20 @@
 				this.setWaypoints(this._waypoints);	//trigger route request via waypoints
 			}.bind(this));
 
+			var likeThisTripButton = L.DomUtil.create('button', 'leaflet-routing-good-trip', container);
+			likeThisTripButton.setAttribute('type', 'button');
+			likeThisTripButton.setAttribute('title', 'Good Trip!');
+			L.DomEvent.addListener(likeThisTripButton, 'click', function() {
+				console.debug('TODO: Good Trip!');
+			}, this);
+
+			var dislikeThisTripButton = L.DomUtil.create('button', 'leaflet-routing-bad-trip', container);
+			dislikeThisTripButton.type = 'button';
+			dislikeThisTripButton.setAttribute("title", "Bad Trip!");
+			L.DomEvent.addListener(dislikeThisTripButton, 'click', function() {
+				console.debug('TODO: Bad Trip!');
+			}, this);
+
 
 			this._departureBatterySlider = departureBatterySlider;
 			this._preferredBeginChargeBatterySlider = preferredBeginChargeBatterySlider;

@@ -122,6 +122,14 @@
     transition: background-color 0.2s ease;
 }
 
+.leaflet-routing-good-trip:after {
+    content: '\1F44D';
+}
+  
+.leaflet-routing-bad-trip:after {
+    content: '\1F44E';
+}
+  
 .leaflet-routing-add-waypoint:after {
     content: '+';
 }
