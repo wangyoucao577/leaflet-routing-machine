@@ -64,8 +64,8 @@
 
 			options = L.extend({}, this.options.routingOptions, options);
 			url = this.buildRouteUrl(waypoints, options);
-			if (this.options.requestParameters) {
-				url += L.Util.getParamString(this.options.requestParameters, url);
+			if (options.requestParameters) {
+				url += L.Util.getParamString(options.requestParameters, url);
 			}
 			console.debug(url)
 

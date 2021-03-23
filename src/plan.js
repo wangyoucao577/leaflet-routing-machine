@@ -51,6 +51,17 @@
 			return true;
 		},
 
+		getEVParams: function() {
+			
+			// ev extra params
+			var evparams = {
+				curr_battery_pct: this._departureBatterySlider.value,
+				anxiety_free_battery_pct: this._anxietyFreeBatterySlider.value
+			};
+
+			return evparams;
+		},
+
 		getWaypoints: function() {
 			var i,
 				wps = [];
@@ -132,6 +143,41 @@
 					this.setWaypoints(this._waypoints);
 				}, this);
 			}
+
+			var departureBatteryLabel = L.DomUtil.create('label', '', container);
+			departureBatteryLabel.innerText = "Departure battery " + 100 + "%";
+			var departureBatterySlider = L.DomUtil.create('input', 'departure-battery-slider', container);
+			departureBatterySlider.type = 'range';
+			departureBatterySlider.setAttribute('orient', 'horizontal');
+			departureBatterySlider.min = 0;
+			departureBatterySlider.max = 100;
+			departureBatterySlider.step = 1;
+			departureBatterySlider.value = 100;
+			L.DomEvent.on(departureBatterySlider, 'change', function(e) {
+				console.debug('departureBatterySlider value: '+e.target.value);
+				departureBatteryLabel.innerText = "Departure battery " + e.target.value + "%";
+				//this.fire('change', {value: e.target.value});
+				this.setWaypoints(this._waypoints);	//trigger route request via waypoints
+			}.bind(this));
+	
+			var anxietyFreeBatteryLabel = L.DomUtil.create('label', '', container);
+			anxietyFreeBatteryLabel.innerHTML = "Anxiety free battery " + 35 + "%";
+			var anxietyFreeBatterySlider = L.DomUtil.create('input', 'prefer-to-charge-battery-slider', container);
+			anxietyFreeBatterySlider.type = 'range';
+			anxietyFreeBatterySlider.setAttribute('orient', 'horizontal');
+			anxietyFreeBatterySlider.min = 1;
+			anxietyFreeBatterySlider.max = 70;
+			anxietyFreeBatterySlider.step = 1;
+			anxietyFreeBatterySlider.value = 35;
+			L.DomEvent.on(anxietyFreeBatterySlider, 'change', function(e) {
+				console.debug('anxietyFreeBatterySlider value: '+e.target.value);
+				anxietyFreeBatteryLabel.innerText = "Anxiety free battery " + e.target.value + "%";
+				//this.fire('change', {value: e.target.value});
+				this.setWaypoints(this._waypoints);	//trigger route request via waypoints
+			}.bind(this));
+
+			this._departureBatterySlider = departureBatterySlider;
+			this._anxietyFreeBatterySlider = anxietyFreeBatterySlider;
 
 			this._updateGeocoders();
 			this.on('waypointsspliced', this._updateGeocoders);
