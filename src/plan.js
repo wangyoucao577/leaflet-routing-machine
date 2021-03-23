@@ -150,11 +150,19 @@
 
 			}			
 
+			var labelColor = 'MidnightBlue';
+			var labelFontWeight = 'bold';
+
 			var placeholderLabel = L.DomUtil.create('p', '', container);	// improve display 
-			placeholderLabel.innerText = "EVTrip Params";
+			//placeholderLabel.innerText = "EVTrip";
+			placeholderLabel.style.color = labelColor;
+			placeholderLabel.style.fontWeight = labelFontWeight;
+			//placeholderLabel.style.borderBottom = 'solid';
 
 			var departureBatteryLabel = L.DomUtil.create('label', '', container);
 			departureBatteryLabel.innerText = "Departure Battery  " + 100 + "%";
+			departureBatteryLabel.style.color = labelColor;
+			departureBatteryLabel.style.fontWeight = labelFontWeight;
 			var departureBatterySlider = L.DomUtil.create('input', 'departure-battery-slider', container);
 			departureBatterySlider.type = 'range';
 			departureBatterySlider.setAttribute('orient', 'horizontal');
@@ -168,7 +176,7 @@
 				//this.fire('change', {value: e.target.value});
 				this.setWaypoints(this._waypoints);	//trigger route request via waypoints
 			}.bind(this));
-	
+
 			var beginChargeMin = 15, beginChargeMax = 70, beginChargeDefault = 35;
 			var endChargeMin = 50, endChargeMax = 100, endChargeDefault = 80;
 			var beginChargeTextPrefix = "Preferred START Charge Battery  ";
@@ -176,6 +184,8 @@
 
 			var preferredBeginChargeBatteryLabel = L.DomUtil.create('label', '', container);
 			preferredBeginChargeBatteryLabel.innerHTML = beginChargeTextPrefix + beginChargeDefault + "%";
+			preferredBeginChargeBatteryLabel.style.color = labelColor;
+			preferredBeginChargeBatteryLabel.style.fontWeight = labelFontWeight;
 			var preferredBeginChargeBatterySlider = L.DomUtil.create('input', 'preferred-begin-charge-battery-slider', container);
 			preferredBeginChargeBatterySlider.type = 'range';
 			preferredBeginChargeBatterySlider.setAttribute('orient', 'horizontal');
@@ -198,6 +208,8 @@
 
 			var preferredEndChargeBatteryLabel = L.DomUtil.create('label', '', container);
 			preferredEndChargeBatteryLabel.innerHTML = endChargeTextPrefix + endChargeDefault + "%";
+			preferredEndChargeBatteryLabel.style.color = labelColor;
+			preferredEndChargeBatteryLabel.style.fontWeight = labelFontWeight;
 			var preferredEndChargeBatterySlider = L.DomUtil.create('input', 'preferred-end-charge-battery-slider', container);
 			preferredEndChargeBatterySlider.type = 'range';
 			preferredEndChargeBatterySlider.setAttribute('orient', 'horizontal');
@@ -221,6 +233,8 @@
 			var arrivalMin = 15, arrivalMax = 70, arrvialDefault = 35;
 			var preferredArrivalBatteryLabel = L.DomUtil.create('label', '', container);
 			preferredArrivalBatteryLabel.innerHTML = "Preferred Arrival Battery  " + arrvialDefault + "%";
+			preferredArrivalBatteryLabel.style.color = labelColor;
+			preferredArrivalBatteryLabel.style.fontWeight = labelFontWeight;
 			var preferredArrivalBatterySlider = L.DomUtil.create('input', 'preferred-arrvial-battery-slider', container);
 			preferredArrivalBatterySlider.type = 'range';
 			preferredArrivalBatterySlider.setAttribute('orient', 'horizontal');
