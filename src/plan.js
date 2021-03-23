@@ -55,7 +55,7 @@
 			
 			// ev extra params
 			var evparams = {
-				curr_battery_pct: this._departureBatterySlider.value,
+				departure_battery_pct: this._departureBatterySlider.value,
 				preferred_start_charge_battery_pct: this._preferredBeginChargeBatterySlider.value,
 				preferred_stop_charge_battery_pct: this._preferredEndChargeBatterySlider.value,
 				preferred_arrival_battery_pct: this._preferredArrivalBatterySlider.value,
@@ -184,7 +184,7 @@
 				console.debug('preferred-begin-charge-battery-slider value: '+e.target.value);
 				preferredBeginChargeBatteryLabel.innerText = beginChargeTextPrefix + e.target.value + "%";
 				if (e.target.value >= preferredEndChargeBatterySlider.value) {
-					var endChargeTargetValue = endChargeMax;
+					var endChargeTargetValue = endChargeDefault;
 					console.debug('preferred-end-charge-battery-slider value ajust to: '+endChargeTargetValue);
 					preferredEndChargeBatterySlider.value = endChargeTargetValue;
 					preferredEndChargeBatteryLabel.innerText = endChargeTextPrefix + endChargeTargetValue + "%";
@@ -206,10 +206,10 @@
 				console.debug('preferred-end-charge-battery-slider value: '+e.target.value);
 				preferredEndChargeBatteryLabel.innerText = endChargeTextPrefix + e.target.value + "%";
 				if (e.target.value <= preferredBeginChargeBatterySlider.value) {
-					var beginChargeTargetValue = beginChargeMin;
+					var beginChargeTargetValue = beginChargeDefault;
 					console.debug('preferred-begin-charge-battery-slider value ajust to: '+beginChargeTargetValue);
-					preferredBeginChargeBatterySlider.value = beginChargeMin;
-					preferredBeginChargeBatteryLabel.innerText = beginChargeTextPrefix + beginChargeMin + "%";
+					preferredBeginChargeBatterySlider.value = beginChargeTargetValue;
+					preferredBeginChargeBatteryLabel.innerText = beginChargeTextPrefix + beginChargeTargetValue + "%";
 				}
 
 				this.setWaypoints(this._waypoints);	//trigger route request via waypoints
