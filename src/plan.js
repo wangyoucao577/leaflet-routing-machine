@@ -59,6 +59,9 @@
 				preferred_start_charge_battery_pct: this._preferredBeginChargeBatterySlider.value,
 				preferred_stop_charge_battery_pct: this._preferredEndChargeBatterySlider.value,
 				preferred_arrival_battery_pct: this._preferredArrivalBatterySlider.value,
+				
+				// simple uuid for req
+				req_id: Date.now() +"-"+ (Math.random()*1000).toFixed(0),
 			};
 
 			return evparams;
