@@ -56,7 +56,9 @@
 			// ev extra params
 			var evparams = {
 				curr_battery_pct: this._departureBatterySlider.value,
-				anxiety_free_battery_pct: this._anxietyFreeBatterySlider.value
+				preferred_start_charge_battery_pct: this._preferredBeginChargeBatterySlider.value,
+				preferred_stop_charge_battery_pct: this._preferredEndChargeBatterySlider.value,
+				preferred_arrival_battery_pct: this._preferredArrivalBatterySlider.value,
 			};
 
 			return evparams;
@@ -142,42 +144,99 @@
 					this._waypoints.reverse();
 					this.setWaypoints(this._waypoints);
 				}, this);
-			}
+
+			}			
+
+			var placeholderLabel = L.DomUtil.create('p', '', container);	// improve display 
+			placeholderLabel.innerText = "EVTrip Params";
 
 			var departureBatteryLabel = L.DomUtil.create('label', '', container);
-			departureBatteryLabel.innerText = "Departure battery " + 100 + "%";
+			departureBatteryLabel.innerText = "Departure Battery  " + 100 + "%";
 			var departureBatterySlider = L.DomUtil.create('input', 'departure-battery-slider', container);
 			departureBatterySlider.type = 'range';
 			departureBatterySlider.setAttribute('orient', 'horizontal');
-			departureBatterySlider.min = 0;
+			departureBatterySlider.min = 1;
 			departureBatterySlider.max = 100;
 			departureBatterySlider.step = 1;
 			departureBatterySlider.value = 100;
 			L.DomEvent.on(departureBatterySlider, 'change', function(e) {
 				console.debug('departureBatterySlider value: '+e.target.value);
-				departureBatteryLabel.innerText = "Departure battery " + e.target.value + "%";
+				departureBatteryLabel.innerText = "Departure Battery  " + e.target.value + "%";
 				//this.fire('change', {value: e.target.value});
 				this.setWaypoints(this._waypoints);	//trigger route request via waypoints
 			}.bind(this));
 	
-			var anxietyFreeBatteryLabel = L.DomUtil.create('label', '', container);
-			anxietyFreeBatteryLabel.innerHTML = "Anxiety free battery " + 35 + "%";
-			var anxietyFreeBatterySlider = L.DomUtil.create('input', 'prefer-to-charge-battery-slider', container);
-			anxietyFreeBatterySlider.type = 'range';
-			anxietyFreeBatterySlider.setAttribute('orient', 'horizontal');
-			anxietyFreeBatterySlider.min = 1;
-			anxietyFreeBatterySlider.max = 70;
-			anxietyFreeBatterySlider.step = 1;
-			anxietyFreeBatterySlider.value = 35;
-			L.DomEvent.on(anxietyFreeBatterySlider, 'change', function(e) {
-				console.debug('anxietyFreeBatterySlider value: '+e.target.value);
-				anxietyFreeBatteryLabel.innerText = "Anxiety free battery " + e.target.value + "%";
+			var beginChargeMin = 15, beginChargeMax = 70, beginChargeDefault = 35;
+			var endChargeMin = 50, endChargeMax = 100, endChargeDefault = 80;
+			var beginChargeTextPrefix = "Preferred START Charge Battery  ";
+			var endChargeTextPrefix = "Preferred STOP Charge Battery  ";
+
+			var preferredBeginChargeBatteryLabel = L.DomUtil.create('label', '', container);
+			preferredBeginChargeBatteryLabel.innerHTML = beginChargeTextPrefix + beginChargeDefault + "%";
+			var preferredBeginChargeBatterySlider = L.DomUtil.create('input', 'preferred-begin-charge-battery-slider', container);
+			preferredBeginChargeBatterySlider.type = 'range';
+			preferredBeginChargeBatterySlider.setAttribute('orient', 'horizontal');
+			preferredBeginChargeBatterySlider.min = beginChargeMin;
+			preferredBeginChargeBatterySlider.max = beginChargeMax;
+			preferredBeginChargeBatterySlider.step = 1;
+			preferredBeginChargeBatterySlider.value = beginChargeDefault;
+			L.DomEvent.on(preferredBeginChargeBatterySlider, 'change', function(e) {
+				console.debug('preferred-begin-charge-battery-slider value: '+e.target.value);
+				preferredBeginChargeBatteryLabel.innerText = beginChargeTextPrefix + e.target.value + "%";
+				if (e.target.value >= preferredEndChargeBatterySlider.value) {
+					var endChargeTargetValue = endChargeMax;
+					console.debug('preferred-end-charge-battery-slider value ajust to: '+endChargeTargetValue);
+					preferredEndChargeBatterySlider.value = endChargeTargetValue;
+					preferredEndChargeBatteryLabel.innerText = endChargeTextPrefix + endChargeTargetValue + "%";
+				}
+				
+				this.setWaypoints(this._waypoints);	//trigger route request via waypoints
+			}.bind(this));
+
+			var preferredEndChargeBatteryLabel = L.DomUtil.create('label', '', container);
+			preferredEndChargeBatteryLabel.innerHTML = endChargeTextPrefix + endChargeDefault + "%";
+			var preferredEndChargeBatterySlider = L.DomUtil.create('input', 'preferred-end-charge-battery-slider', container);
+			preferredEndChargeBatterySlider.type = 'range';
+			preferredEndChargeBatterySlider.setAttribute('orient', 'horizontal');
+			preferredEndChargeBatterySlider.min = endChargeMin;
+			preferredEndChargeBatterySlider.max = endChargeMax;
+			preferredEndChargeBatterySlider.step = 1;
+			preferredEndChargeBatterySlider.value = endChargeDefault;
+			L.DomEvent.on(preferredEndChargeBatterySlider, 'change', function(e) {
+				console.debug('preferred-end-charge-battery-slider value: '+e.target.value);
+				preferredEndChargeBatteryLabel.innerText = endChargeTextPrefix + e.target.value + "%";
+				if (e.target.value <= preferredBeginChargeBatterySlider.value) {
+					var beginChargeTargetValue = beginChargeMin;
+					console.debug('preferred-begin-charge-battery-slider value ajust to: '+beginChargeTargetValue);
+					preferredBeginChargeBatterySlider.value = beginChargeMin;
+					preferredBeginChargeBatteryLabel.innerText = beginChargeTextPrefix + beginChargeMin + "%";
+				}
+
+				this.setWaypoints(this._waypoints);	//trigger route request via waypoints
+			}.bind(this));
+
+			var arrivalMin = 15, arrivalMax = 70, arrvialDefault = 35;
+			var preferredArrivalBatteryLabel = L.DomUtil.create('label', '', container);
+			preferredArrivalBatteryLabel.innerHTML = "Preferred Arrival Battery  " + arrvialDefault + "%";
+			var preferredArrivalBatterySlider = L.DomUtil.create('input', 'preferred-arrvial-battery-slider', container);
+			preferredArrivalBatterySlider.type = 'range';
+			preferredArrivalBatterySlider.setAttribute('orient', 'horizontal');
+			preferredArrivalBatterySlider.min = arrivalMin;
+			preferredArrivalBatterySlider.max = arrivalMax;
+			preferredArrivalBatterySlider.step = 1;
+			preferredArrivalBatterySlider.value = arrvialDefault;
+			L.DomEvent.on(preferredArrivalBatterySlider, 'change', function(e) {
+				console.debug('preferred-arrvial-battery-slider value: '+e.target.value);
+				preferredArrivalBatteryLabel.innerText = "Preferred Arrival Battery  " + e.target.value + "%";
 				//this.fire('change', {value: e.target.value});
 				this.setWaypoints(this._waypoints);	//trigger route request via waypoints
 			}.bind(this));
 
+
 			this._departureBatterySlider = departureBatterySlider;
-			this._anxietyFreeBatterySlider = anxietyFreeBatterySlider;
+			this._preferredBeginChargeBatterySlider = preferredBeginChargeBatterySlider;
+			this._preferredEndChargeBatterySlider = preferredEndChargeBatterySlider;
+			this._preferredArrivalBatterySlider = preferredArrivalBatterySlider;
 
 			this._updateGeocoders();
 			this.on('waypointsspliced', this._updateGeocoders);
