@@ -261,6 +261,7 @@
 			L.DomEvent.addListener(likeThisTripButton, 'click', function() {
 				console.debug('TODO: Good Trip! req_id: ' + this._metadata.req_id);
 				alert("Thanks for the feedback!")
+				this.setEVTripMetadata(null);
 			}, this);
 
 			var dislikeThisTripButton = L.DomUtil.create('button', 'leaflet-routing-bad-trip', container);
@@ -269,6 +270,7 @@
 			L.DomEvent.addListener(dislikeThisTripButton, 'click', function() {
 				console.debug('TODO: Bad Trip! req_id: ' + this._metadata.req_id);
 				alert("Thanks for the feedback!")
+				this.setEVTripMetadata(null);
 			}, this);
 
 			var supportedEVModels = {

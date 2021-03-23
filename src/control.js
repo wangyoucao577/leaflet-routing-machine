@@ -311,6 +311,7 @@
 				}
 				this.fire('routingstart', {waypoints: wps});
 				options.requestParameters = this._plan.getEVParams();
+				this._plan.setEVTripMetadata(null);
 				this._pendingRequest = this._router.route(wps, function(err, routes) {
 					this._pendingRequest = null;
 
