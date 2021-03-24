@@ -301,6 +301,11 @@
 
 			this._evModelsSelect = evModelsSelect;
 
+			//TODO: temporarily disabled 
+			this._preferredBeginChargeBatterySlider.disabled = true;
+			this._preferredEndChargeBatterySlider.disabled = true;
+			this._preferredArrivalBatterySlider.disabled = true;
+
 			this._updateGeocoders();
 			this.on('waypointsspliced', this._updateGeocoders);
 
