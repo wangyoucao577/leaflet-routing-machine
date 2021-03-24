@@ -289,6 +289,15 @@
 				alert("Trip ID "+this._metadata.req_id+" looks BAD!\nThanks for the feedback!")
 			}, this);
 
+			var showMetadataButton = L.DomUtil.create('button', 'leaflet-routing-show-metadata', container);
+			showMetadataButton.type = 'button';
+			showMetadataButton.setAttribute("title", "Show Trip Metadata");
+			L.DomEvent.addListener(showMetadataButton, 'click', function() {
+				if (this._metadata){
+					prompt("please press Ctrl+C to copy the text below:", JSON.stringify(this._metadata));
+				}
+			}, this);
+
 			var supportedEVModels = {
 				'tesla_model_3': 'Telsa Model 3(55Wh)', 
 				//'tesla_model_s2': 'Tesla Model S2'
