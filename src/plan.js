@@ -194,7 +194,7 @@
 			}.bind(this));
 
 			var beginChargeMin = 15, beginChargeMax = 70, beginChargeDefault = 15;
-			var endChargeMin = 50, endChargeMax = 100, endChargeDefault = 90;
+			var endChargeMin = 50, endChargeMax = 100, endChargeDefault = 80;
 			var beginChargeTextPrefix = "Preferred START Charge Battery  ";
 			var endChargeTextPrefix = "Preferred STOP Charge Battery  ";
 
