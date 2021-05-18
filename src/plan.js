@@ -300,12 +300,13 @@
 
 			var supportedEVModels = {
 				'tesla_model3': 'Telsa Model 3', 
-				//'tesla_models2': 'Tesla Model S2'
+				'tesla_models2': 'Tesla Model S2'
 			}
 			var evModelsSelect = L.DomUtil.create('select', '', container);
 			evModelsSelect.setAttribute('title', 'Select EV Model');
 			L.DomEvent.on(evModelsSelect, 'change', function(e) {
-				console.debug('TODO: on evModelsSelect');
+				console.debug('on evModelsSelect');
+				this.setWaypoints(this._waypoints);	//trigger route request via waypoints
 			}.bind(this));
 			Object.keys(supportedEVModels).forEach(function(key) {
 				var option = L.DomUtil.create('option', '', evModelsSelect);
