@@ -193,8 +193,8 @@
 				this.setWaypoints(this._waypoints);	//trigger route request via waypoints
 			}.bind(this));
 
-			var beginChargeMin = 15, beginChargeMax = 70, beginChargeDefault = 35;
-			var endChargeMin = 50, endChargeMax = 100, endChargeDefault = 80;
+			var beginChargeMin = 15, beginChargeMax = 70, beginChargeDefault = 15;
+			var endChargeMin = 50, endChargeMax = 100, endChargeDefault = 90;
 			var beginChargeTextPrefix = "Preferred START Charge Battery  ";
 			var endChargeTextPrefix = "Preferred STOP Charge Battery  ";
 
@@ -246,7 +246,7 @@
 				this.setWaypoints(this._waypoints);	//trigger route request via waypoints
 			}.bind(this));
 
-			var arrivalMin = 15, arrivalMax = 70, arrvialDefault = 35;
+			var arrivalMin = 15, arrivalMax = 70, arrvialDefault = 15;
 			var preferredArrivalBatteryLabel = L.DomUtil.create('label', '', container);
 			preferredArrivalBatteryLabel.innerHTML = "Preferred Arrival Battery  " + arrvialDefault + "%";
 			preferredArrivalBatteryLabel.style.color = labelColor;
@@ -327,8 +327,8 @@
 			this._evModelsSelect = evModelsSelect;
 
 			//TODO: temporarily disabled 
-			this._preferredBeginChargeBatterySlider.disabled = true;
-			this._preferredEndChargeBatterySlider.disabled = true;
+			this._preferredBeginChargeBatterySlider.disabled = false;
+			this._preferredEndChargeBatterySlider.disabled = false;
 			this._preferredArrivalBatterySlider.disabled = true;
 
 			this._updateGeocoders();
