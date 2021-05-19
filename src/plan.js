@@ -299,7 +299,7 @@
 			}, this);
 
 			var supportedEVModels = {
-				'tesla_model3': 'Telsa Model 3', 
+				'tesla_model3': 'Tesla Model 3', 
 				'tesla_models2': 'Tesla Model S2'
 			}
 			var evModelsSelect = L.DomUtil.create('select', '', container);
