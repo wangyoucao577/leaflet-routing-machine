@@ -330,7 +330,7 @@
 			//TODO: temporarily disabled 
 			this._preferredBeginChargeBatterySlider.disabled = false;
 			this._preferredEndChargeBatterySlider.disabled = false;
-			this._preferredArrivalBatterySlider.disabled = true;
+			this._preferredArrivalBatterySlider.disabled = false;
 
 			this._updateGeocoders();
 			this.on('waypointsspliced', this._updateGeocoders);
